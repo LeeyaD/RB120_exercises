@@ -27,7 +27,6 @@ end
 
 class Truck < Vehicle
   attr_reader :payload
-
   def initialize(make, model, payload)
     super(make, model)
     @payload = payload
