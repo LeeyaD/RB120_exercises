@@ -24,9 +24,6 @@ class FixedArray
 
   attr_accessor :array
 end
-#init an array of nil's, the length of which is determized by the size it's initialized with
-
-#methods needed [], []=, to_a
 
 fixed_array = FixedArray.new(5)
 puts fixed_array[3] == nil
