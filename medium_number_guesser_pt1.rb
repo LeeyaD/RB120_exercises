@@ -1,5 +1,4 @@
 class GuessingGame
-# Note that a game object should start a new game with a new number to guess with each call to #play.
   GUESSES = 7
 
   def initialize
@@ -10,12 +9,13 @@ class GuessingGame
 
   def display_welcome_message
     puts "Welcome to the Guessing Game!"
-    puts "Try to guess the secret number from 1 to 100"
-    puts "You only get #{GUESSES} guesses so guess wisely"
+    puts "Try to guess the secret number!"
+    puts ""
   end
 
-  def number_of_guesses
-    puts "You have #{guesses_left} guesses remaining."
+  def display_guesses
+    puts ""
+    puts "Remaining guesses: #{guesses_left}"
   end
 
   def guess_answer
@@ -26,19 +26,34 @@ class GuessingGame
       puts "Invalid guess."
     end
   end
-
-  def win?
+  
+  def correct_number?
     guess == answer
   end
 
-  def high?
-    guess > answer
+  def high_or_low?
+    if guess > answer
+      puts "Your guess is too high."
+    else
+      puts "Your guess is too low."
+    end
+  end
+
+  def remaining_guesses?
+    guesses_left == 0
+  end
+
+  def display_no_guesses_left
+    puts ""
+    puts "You have no more guesses. You lost!" if guesses_left == 0
   end
 
   def display_result
-    return puts "That's the number!" if win?
-    
-    puts high? ? "Your guess is too high." : "Your guess is too low."
+    if correct_number?
+      puts "That's the number! You won!"
+    else
+      high_or_low?
+    end
     self.guesses_left = guesses_left - 1
   end
 
@@ -47,10 +62,12 @@ class GuessingGame
     display_welcome_message
 
     loop do
-      number_of_guesses
+      display_guesses
       guess_answer
       display_result
-      break
+      break if correct_number?
+      display_no_guesses_left
+      break if remaining_guesses?
     end
 
   end
@@ -68,54 +85,7 @@ end
 game = GuessingGame.new
 game.play
 
-# You have 7 guesses remaining.
-# Enter a number between 1 and 100: 104
-# Invalid guess. Enter a number between 1 and 100: 50
-# Your guess is too low.
-
-# You have 6 guesses remaining.
-# Enter a number between 1 and 100: 75
-# Your guess is too low.
-
-# You have 5 guesses remaining.
-# Enter a number between 1 and 100: 85
-# Your guess is too high.
-
-# You have 4 guesses remaining.
-# Enter a number between 1 and 100: 0
-# Invalid guess. Enter a number between 1 and 100: 80
-
-# You have 3 guesses remaining.
-# Enter a number between 1 and 100: 81
-# That's the number!
-
-# You won!
-
-#game.play
-
-# You have 7 guesses remaining.
-# Enter a number between 1 and 100: 50
-# Your guess is too high.
-
-# You have 6 guesses remaining.
-# Enter a number between 1 and 100: 25
-# Your guess is too low.
-
-# You have 5 guesses remaining.
-# Enter a number between 1 and 100: 37
-# Your guess is too high.
-
-# You have 4 guesses remaining.
-# Enter a number between 1 and 100: 31
-# Your guess is too low.
-
-# You have 3 guesses remaining.
-# Enter a number between 1 and 100: 34
-# Your guess is too high.
-
-# You have 2 guesses remaining.
-# Enter a number between 1 and 100: 32
-# Your guess is too low.
+# game stops when there are no remaining guesses
 
 # You have 1 guesses remaining.
 # Enter a number between 1 and 100: 32
